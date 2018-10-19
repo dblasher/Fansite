@@ -1,0 +1,47 @@
+﻿@model List<Link>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sources</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body style="padding-top: 65px">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header justify-content-between">
+                <a class="navbar-brand" href="/" style="color: white">Ghandi</a>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Home" asp-action="Stories">Stories</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Home" asp-action="History">History</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" style="color: rgb(232, 248, 85)" asp-controller="Sources" asp-action="Links">Links</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Sources" asp-action="Print">Print</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Sources</h2>
+
+        <ul class="list-group list-group-flush">
+
+            @foreach (Link link in Model)
+            {<li class="list-group-item"><a href=@link.URL>@link.Title</a>: @link.Description</li>}
+            <li class="list-group-item"><a href="https://www.biography.com/people/mahatma-gandhi-9305898">Biography</a></li>
+            <li class="list-group-item"><a href="http://www.gandhimemorialcenter.org/">Memorial Center</a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>History</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body style="padding-top: 65px">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header justify-content-between">
+                <a class="navbar-brand" href="/" style="color: white">Ghandi</a>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Home" asp-action="Stories">Stories</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" style="color: rgb(232, 248, 85)" asp-controller="Home" asp-action="History">History</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Sources" asp-action="Links">Links</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Sources" asp-action="Print">Print</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>History</h2>
+        <p>
+            Ghandi was born October 2nd, 1869 in Gujarat India. He is most famous for leading the Indian Independence
+            Movement against British rule in the early 1900s.
+        </p>
+    </div>
+</body>
+</html>
