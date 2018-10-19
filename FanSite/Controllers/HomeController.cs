@@ -13,27 +13,6 @@ namespace FanSite.Controllers
     {
         StoryResponse story;
 
-        public HomeController()
-        {
-            if (StoryRepository.Stories.Count == 0)
-            {
-                story = new StoryResponse()
-                {
-                    Title = "Ghandi goes on hunger strike",
-                    Date = "April 9th, 1908",
-                    Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet pulvinar lorem."
-                };
-                story.Authors.Add(new User  //why not close the parenthesis unlike on line 21?
-                {
-                    Username = "Ken Burns"
-                }
-                );
-                StoryRepository.AddStory(story);
-            }
-            
-        }
-
-
         public ViewResult Index()
         {
             return View();
@@ -67,6 +46,7 @@ namespace FanSite.Controllers
         {
             List<StoryResponse> stories = StoryRepository.Stories;
             stories.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
+            ViewBag.newestStory = stories[stories.Count - 1].Title;
             return View(stories);
         }
 

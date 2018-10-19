@@ -1,43 +1,33 @@
-﻿@{
-    Layout = null;
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Home</title>
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
-</head>
-<body style="padding-top: 65px">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header justify-content-between">
-                <a class="navbar-brand" asp-action="Index" style="color: white">Ghandi</a>
-                <div class="navbar-brand navbar-right">
-                    <a class="nav-link" asp-controller="Home" asp-action="Stories">Stories</a>
-                </div>
-                <div class="navbar-brand navbar-right">
-                    <a class="nav-link" asp-controller="Home" asp-action="History">History</a>
-                </div>
-                <div class="navbar-brand navbar-right">
-                    <a class="nav-link" asp-controller="Sources" asp-action="Links">Links</a>
-                </div>
-                <div class="navbar-brand navbar-right">
-                    <a class="nav-link" asp-controller="Sources" asp-action="Print">Print</a>
-                </div>
-                <div class="navbar-brand navbar-right">
-                    <a style="color: rgb(232, 248, 85)"  asp-controller="Home" asp-action="Index">Home</a>
-                </div>
+﻿@* @Layout = Views/Shared/_Layout.cshtml;*@
+@{ViewData["Title"] = "Home"; }
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header justify-content-between">
+            <a class="navbar-brand" asp-action="Index" style="color: white">Ghandi</a>
+            <div class="navbar-brand navbar-right">
+                <a class="nav-link" asp-controller="Home" asp-action="Stories">Stories</a>
+            </div>
+            <div class="navbar-brand navbar-right">
+                <a class="nav-link" asp-controller="Home" asp-action="History">History</a>
+            </div>
+            <div class="navbar-brand navbar-right">
+                <a class="nav-link" asp-controller="Sources" asp-action="Links">Links</a>
+            </div>
+            <div class="navbar-brand navbar-right">
+                <a class="nav-link" asp-controller="Sources" asp-action="Print">Print</a>
+            </div>
+            <div class="navbar-brand navbar-right">
+                <a style="color: rgb(232, 248, 85)"  asp-controller="Home" asp-action="Index">Home</a>
             </div>
         </div>
-    </nav>
-    <div class="container">
-        <h2>Welcome!</h2>
-        <p>
-            This page is dedicated to Ghandi and some snippets about his life. Check out any of
-            the links above to learn about him.
-        </p>
-
     </div>
-</body>
-</html>
+</nav>
+<div class="container">
+    <h2>Welcome!</h2>
+    <p>
+        This page is dedicated to Ghandi and some snippets about his life. Check out any of
+        the links above to learn about him.
+    </p>
+    <h3> Latest Story written about Ghandi: @ViewBag.newestStory</h3>
+</div>

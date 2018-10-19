@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FanSite.Models
 {
+    /// <summary>
+    /// holds list of authors, comments, string Title, Date, and Text, and int Rating
+    /// </summary>
     public class StoryResponse
     {
         private List<User> authors = new List<User>();
