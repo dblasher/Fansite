@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+
+<body style="padding-top: 65px">
+    <!--RenderBody() here-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header justify-content-between">
+                <a class="navbar-brand" href="/" style="color: white">Ghandi</a>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" style="color: rgb(232, 248, 85)" asp-controller="Home" asp-action="Stories">Stories</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Home" asp-action="History">History</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Sources" asp-action="Links">Links</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a class="nav-link" asp-controller="Sources" asp-action="Print">Print</a>
+                </div>
+                <div class="navbar-brand navbar-right">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    @RenderBody()
+</body>
+</html>

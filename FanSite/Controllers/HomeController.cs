@@ -46,7 +46,8 @@ namespace FanSite.Controllers
         {
             List<StoryResponse> stories = StoryRepository.Stories;
             stories.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
-            ViewBag.newestStory = stories[stories.Count - 1].Title;
+            ViewData["storyCount"] = stories.Count;
+            ViewBag.newestStory = stories[stories.Count - 1].Title.ToString();
             return View(stories);
         }
 
@@ -65,10 +66,8 @@ namespace FanSite.Controllers
                 Commenter = new User() { Username = commenter },
                 CommentText = commentText
             });
+            ViewBag.newestCommenter = "Thanks for the comment, " + commenter;
             return RedirectToAction("UserStories");
         }
-
-        //need to add a post method for UserStories that accepts comment, and username and an index
-        //then create a comment instance and assign it StoryRepository[index].addComment(newComment)
     }
 }

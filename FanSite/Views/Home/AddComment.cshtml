@@ -1,10 +1,14 @@
 ﻿@model String
 
+@{
+    Layout = "_submissionLayout";
+}
+
 @{ViewData["Title"] = "Add a Comment"; }
 
 <div class="container">
     <h1>Comment on story <em>@Model</em></h1>
-    <form class="p-a-1" method="post">
+    <form class="p-a-1" method="post" asp-antiforgery="true">
         <div class="form-group">
             <label for="commentText">Comment:</label><br />
             <textarea class="form-control" type="text" name="commentText"></textarea><br />

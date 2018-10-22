@@ -1,6 +1,10 @@
 ﻿@model List<StoryResponse>
 
-@{ViewData["Title"] = "User Stories"; }
+@{ViewData["Title"] = "User Stories";
+    //should get the latest user's name to display in the layout
+    List<StoryResponse> stories = StoryRepository.Stories;
+    ViewBag.latestUser = stories[stories.Count - 1].Authors[0].Username;
+    }
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -26,6 +30,9 @@
 </nav>
 <div class="container">
     <h2> User Stories</h2>
+    <h3>@ViewBag.newestCommenter</h3>
+    <h3> Number of stories about Ghandi: @ViewData["storyCount"]</h3>
+    <h3> Newest Story: @ViewBag.newestStory</h3>
     <h3 style="align-items:center"><a asp-action="Stories">Back to Story submission</a></h3>
     <div class="row">
         @foreach (StoryResponse story in Model)
