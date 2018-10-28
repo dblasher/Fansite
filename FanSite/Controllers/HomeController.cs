@@ -27,7 +27,7 @@ namespace FanSite.Controllers
         {
             return View();
         }
-
+        //user submitted the Story form, create a new story with that data and add it the the StoryRepostory static model
         [HttpPost]
         public RedirectToActionResult Stories(string Title, string Authors, string Date, string Text)
         {
@@ -41,7 +41,7 @@ namespace FanSite.Controllers
             StoryRepository.AddStory(story);
             return RedirectToAction("UserStories");
         }
-
+        //user navigated to the UserStories page, send the view all the stories currently saved in the StoryRepository model
         public IActionResult UserStories()
         {
             List<StoryResponse> stories = StoryRepository.Stories;
@@ -51,12 +51,13 @@ namespace FanSite.Controllers
             return View(stories);
         }
 
-
+        //user clicked "Add Comment", need to render the title of the story they clicked on
         public IActionResult AddComment(string title)
         {
             return View("AddComment", HttpUtility.HtmlDecode(title));
         }
 
+        //User submitted a comment, add it to the story with that title and return the user back to UserStories view
         [HttpPost]
         public RedirectToActionResult AddComment(string title, string commentText, string commenter)
         {
@@ -66,7 +67,7 @@ namespace FanSite.Controllers
                 Commenter = new User() { Username = commenter },
                 CommentText = commentText
             });
-            ViewBag.newestCommenter = "Thanks for the comment, " + commenter;
+            ViewBag.newestCommenter = "Thanks for the comment!";
             return RedirectToAction("UserStories");
         }
     }
