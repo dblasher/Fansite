@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FanSite.Models;
 using System.Web;
+using FanSite.Repositories;
 
 namespace FanSite.Controllers
 {
     public class HomeController : Controller
     {
-        StoryResponse story;
+        IStoryRepository repo;
 
+        //need to tell the startup.cs what interface to pass in here
+        public HomeController(IStoryRepository r)
+        {
+            repo = r;
+        }
         public ViewResult Index()
         {
             return View();
@@ -29,22 +35,22 @@ namespace FanSite.Controllers
         }
         //user submitted the Story form, create a new story with that data and add it the the StoryRepostory static model
         [HttpPost]
-        public RedirectToActionResult Stories(string Title, string Authors, string Date, string Text)
+        public RedirectToActionResult AddStory(string Title, string Authors, string Date, string Text)
         {
-            story = new StoryResponse();
+            StoryResponse story = new StoryResponse();
             story.Title = Title;
             story.Date = Date; //for now Date is a string
             story.Text = Text;
             //this is messy, the way I set up my form I had to use Authors as an input field
             story.Authors.Add(new User() { Username = Authors });
 
-            StoryRepository.AddStory(story);
+            repo.AddStory(story);
             return RedirectToAction("UserStories");
         }
         //user navigated to the UserStories page, send the view all the stories currently saved in the StoryRepository model
         public IActionResult UserStories()
         {
-            List<StoryResponse> stories = StoryRepository.Stories;
+            List<StoryResponse> stories = repo.Stories;
             stories.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
             ViewData["storyCount"] = stories.Count;
             ViewBag.newestStory = stories[stories.Count - 1].Title.ToString();
@@ -61,7 +67,7 @@ namespace FanSite.Controllers
         [HttpPost]
         public RedirectToActionResult AddComment(string title, string commentText, string commenter)
         {
-            StoryResponse story = StoryRepository.GetStoryByTitle(title);
+            StoryResponse story = repo.GetStoryByTitle(title);
             story.Comments.Add(new Comment()
             {
                 Commenter = new User() { Username = commenter },

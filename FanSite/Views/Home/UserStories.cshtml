@@ -2,8 +2,7 @@
 
 @{ViewData["Title"] = "User Stories";
     //should get the latest user's name to display in the layout
-    List<StoryResponse> stories = StoryRepository.Stories;
-    ViewBag.latestUser = stories[stories.Count - 1].Authors[0].Username;
+    ViewBag.latestUser = Model[Model.Count - 1].Authors[0].Username;
     }
 
 <nav class="navbar navbar-inverse navbar-fixed-top">

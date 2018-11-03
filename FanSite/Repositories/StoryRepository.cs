@@ -1,37 +1,39 @@
-﻿using System;
+﻿using FanSite.Models;
+using FanSite.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FanSite.Models
+namespace FanSite.Repositories
 {
     /// <summary>
     /// Holds a list of stories
     /// </summary>
     //I should refactor my repositories into a single model
-    public static class StoryRepository
+    public class StoryRepository : IStoryRepository
     {
-        private static List<StoryResponse> stories = new List<StoryResponse>();
+        private List<StoryResponse> stories = new List<StoryResponse>();
 
-        public static List<StoryResponse> Stories { get { return stories; } }
+        public List<StoryResponse> Stories { get { return stories; } }
 
-        static StoryRepository()
+        public StoryRepository()
         {
             AddTestData();
         }
 
-        public static void AddStory(StoryResponse story)
+        public void AddStory(StoryResponse story)
         {
             stories.Add(story);
         }
 
-        public static StoryResponse GetStoryByTitle(string title)
+        public StoryResponse GetStoryByTitle(string title)
         {
             StoryResponse story = stories.Find(s => s.Title == title);
             return story;
         }
 
-        static void AddTestData()
+         void AddTestData()
         {
             StoryResponse story = new StoryResponse()
             {
