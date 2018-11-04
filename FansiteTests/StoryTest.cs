@@ -12,7 +12,7 @@ namespace FansiteTests.Tests
         {
             //arrange
             var repo = new FakeStoryRepository();
-            var controller = new HomeController(repo);
+            var controller = new StoryController(repo);
 
             //act
             controller.Stories("Ghandi meets with the Prime Minister", "Carl Sagan", "April 5th, 1968", "The meeting went very poorly.");
