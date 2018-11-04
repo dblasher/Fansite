@@ -19,23 +19,24 @@ namespace FanSite.Controllers
         {
             repo = r;
         }
-        public ViewResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        public ViewResult History()
+        public IActionResult History()
         {
             return View();
         }
 
-        public ViewResult Stories()
+        public IActionResult Stories()
         {
             return View();
         }
+
         //user submitted the Story form, create a new story with that data and add it the the StoryRepostory static model
         [HttpPost]
-        public RedirectToActionResult AddStory(string Title, string Authors, string Date, string Text)
+        public RedirectToActionResult Stories(string Title, string Authors, string Date, string Text)
         {
             StoryResponse story = new StoryResponse();
             story.Title = Title;
