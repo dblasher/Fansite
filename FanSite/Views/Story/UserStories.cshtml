@@ -2,7 +2,7 @@
 
 @{ViewData["Title"] = "User Stories";
     //should get the latest user's name to display in the layout
-    ViewBag.latestUser = Model[Model.Count - 1].Authors[0].Username;
+    ViewBag.latestUser = Model[Model.Count - 1].Author.Username;
     }
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -41,7 +41,7 @@
                 <div class="thumbnail">
                     <div class="caption">
                         <h3>@story.Title</h3>
-                        <h4> By @story.Authors[0].Username</h4>
+                        <h4> By @story.Author.Username</h4>
                         <p><strong>@story.Date</strong> - @story.Text</p>
                         <p>
                             <a asp-action="AddComment" asp-route-title="@story.Title" class="btn btn-primary">Comment</a>

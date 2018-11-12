@@ -8,6 +8,9 @@ namespace FanSite.Models
 {
     public class Comment
     {
+        public int CommentID { get; set; }
+
+
         [Required(ErrorMessage = "Please enter a Comment")]
         public string CommentText { get; set; }
 

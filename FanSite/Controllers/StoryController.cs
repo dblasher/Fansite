@@ -34,7 +34,7 @@ namespace FanSite.Controllers
             story.Date = Date; //for now Date is a string
             story.Text = Text;
             //this is messy, the way I set up my form I had to use Authors as an input field
-            story.Authors.Add(new User() { Username = Authors });
+            story.Author = new User() { Username = Authors };
 
             repo.AddStory(story);
             return RedirectToAction("UserStories");

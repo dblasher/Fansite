@@ -8,6 +8,8 @@ namespace FanSite.Models
 {
     public class User
     {
+        public int UserID { get; set; }
+
         private List<StoryResponse> stories = new List<StoryResponse>();
         private List<Comment> comments = new List<Comment>();
 

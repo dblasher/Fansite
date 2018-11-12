@@ -31,10 +31,10 @@ namespace FansiteTests.Tests
                 Date = "test date",
                 Text = "test text"
             };
-            story.Authors.Add(new User
+            story.Author = new User()
             {
                 Username = "Mr. Test"
-            });
+            };
             var repo2 = new FakeStoryRepository();
 
             //act
@@ -44,7 +44,7 @@ namespace FansiteTests.Tests
             Assert.Equal("Test title", repo2.Stories[repo2.Stories.Count - 1].Title);
             Assert.Equal("test date", repo2.Stories[repo2.Stories.Count - 1].Date);
             Assert.Equal("test text", repo2.Stories[repo2.Stories.Count - 1].Text);
-            Assert.Equal("Mr. Test", repo2.Stories[repo2.Stories.Count - 1].Authors[0].Username);
+            Assert.Equal("Mr. Test", repo2.Stories[repo2.Stories.Count - 1].Author.Username);
         }
 
         [Fact]

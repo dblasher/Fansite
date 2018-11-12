@@ -41,10 +41,10 @@ namespace FanSite.Repositories
                 Date = "April 9th, 1908",
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet pulvinar lorem."
             };
-            story.Authors.Add(new User
+            story.Author = new User()
             {
                 Username = "Ken Burns"
-            });
+            };
             stories.Add(story);
         }
     }
