@@ -32,6 +32,11 @@ namespace FanSite.Repositories
             return story;
         }
 
+        public void AddComment(StoryResponse story, Comment comment)
+        {
+            //finish writing a fake version of this method
+        }
+
         void AddTestData()
         {
             StoryResponse story = new StoryResponse()

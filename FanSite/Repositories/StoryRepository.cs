@@ -1,5 +1,6 @@
 ﻿using FanSite.Models;
 using FanSite.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,39 +14,51 @@ namespace FanSite.Repositories
     //I should refactor my repositories into a single model
     public class StoryRepository : IStoryRepository
     {
-        private List<StoryResponse> stories = new List<StoryResponse>();
+        //dependecy injection service will define this property
+        private AppDbContext context;
 
-        public List<StoryResponse> Stories { get { return stories; } }
+        public List<StoryResponse> Stories { get { return context.Stories.Include(Stories=>Stories.Author).Include(Stories => Stories.Comments).ToList(); } }
 
-        public StoryRepository()
+        public StoryRepository(AppDbContext appContext)
         {
-            AddTestData();
+            context = appContext;
         }
 
         public void AddStory(StoryResponse story)
         {
-            stories.Add(story);
+            context.Stories.Add(story);
+            context.SaveChanges();
         }
 
         public StoryResponse GetStoryByTitle(string title)
         {
-            StoryResponse story = stories.Find(s => s.Title == title);
+            //couldn't I just use Stories.Find() instead of context?
+            //nevermind, gotta use the context for talking to the database
+            StoryResponse story = context.Stories.First(s => s.Title == title);
             return story;
         }
 
-         void AddTestData()
+        //need to add the comment to the Comments context, otherwise it won't show up in the database
+        public void AddComment(StoryResponse story, Comment comment)
         {
-            StoryResponse story = new StoryResponse()
-            {
-                Title = "Ghandi goes on hunger strike",
-                Date = "April 9th, 1908",
-                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet pulvinar lorem."
-            };
-            story.Author = new User()
-            {
-                Username = "Ken Burns"
-            };
-            stories.Add(story);
+            story.Comments.Add(comment);
+            context.Stories.Update(story);
+            context.SaveChanges();
         }
+
+        //     void AddTestData()
+        //    {
+        //        StoryResponse story = new StoryResponse()
+        //        {
+        //            Title = "Ghandi goes on hunger strike",
+        //            Date = "April 9th, 1908",
+        //            Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet pulvinar lorem."
+        //        };
+        //        story.Author = new User()
+        //        {
+        //            Username = "Ken Burns"
+        //        };
+        //        stories.Add(story);
+        //    }
     }
 }

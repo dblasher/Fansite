@@ -11,12 +11,11 @@ namespace FanSite.Models
     /// </summary>
     public class StoryResponse
     {
-        private User author = new User();
+        public int StoryResponseID { get; set; }
+        //private User author = new User();
         private List<Comment> comments = new List<Comment>();
 
         public int rating = 0;
-
-        public int StoryID { get; set; }
 
         [Required(ErrorMessage = "Please enter a title")]
         public string Title { get; set; }
@@ -28,8 +27,6 @@ namespace FanSite.Models
         public string Text { get; set; }
 
         public int Rating { get; set; }
-
-        //public User Author { get; set; }
 
         public User Author { get; set; }
         public List<Comment> Comments { get { return comments; } }

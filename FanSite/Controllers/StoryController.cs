@@ -27,14 +27,14 @@ namespace FanSite.Controllers
 
         //user submitted the Story form, create a new story with that data and add it the the StoryRepostory static model
         [HttpPost]
-        public RedirectToActionResult Stories(string Title, string Authors, string Date, string Text)
+        public RedirectToActionResult Stories(string title, string author, string date, string text)
         {
             StoryResponse story = new StoryResponse();
-            story.Title = Title;
-            story.Date = Date; //for now Date is a string
-            story.Text = Text;
+            story.Title = title;
+            story.Date = date; //for now Date is a string
+            story.Text = text;
             //this is messy, the way I set up my form I had to use Authors as an input field
-            story.Author = new User() { Username = Authors };
+            story.Author = new User() { Username = author };
 
             repo.AddStory(story);
             return RedirectToAction("UserStories");
@@ -45,7 +45,7 @@ namespace FanSite.Controllers
             List<StoryResponse> stories = repo.Stories;
             stories.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
             ViewData["storyCount"] = stories.Count;
-            ViewBag.newestStory = stories[stories.Count - 1].Title.ToString();
+            //ViewBag.newestStory = stories[stories.Count - 1].Title.ToString();
             return View(stories);
         }
 
@@ -60,7 +60,7 @@ namespace FanSite.Controllers
         public RedirectToActionResult AddComment(string title, string commentText, string commenter)
         {
             StoryResponse story = repo.GetStoryByTitle(title);
-            story.Comments.Add(new Comment()
+            repo.AddComment(story, new Comment()
             {
                 Commenter = new User() { Username = commenter },
                 CommentText = commentText

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,7 +37,13 @@ namespace FanSite
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //inject repositories into the controllers. any controllers with IStoryRepository as parameter will inject a StoryRepository
+            //occurs for every web request
             services.AddTransient<IStoryRepository, StoryRepository>();
+            //add service for DB connection string
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+                Configuration["Data:Fansite:ConnectionString"]));
+
+            //services.AddTransient<>(AppDbContext);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
