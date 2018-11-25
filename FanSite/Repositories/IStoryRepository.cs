@@ -11,7 +11,7 @@ namespace FanSite.Repositories
     /// </summary>
     public interface IStoryRepository
     {
-        List<StoryResponse> Stories { get;}
+        IQueryable<StoryResponse> Stories { get;}
 
         void AddStory(StoryResponse story);
 

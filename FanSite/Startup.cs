@@ -69,6 +69,9 @@ namespace FanSite
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Adding call to SeedData.cs
+            SeedData.Seed(app);
         }
     }
 }

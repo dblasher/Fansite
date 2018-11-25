@@ -17,7 +17,14 @@ namespace FanSite.Repositories
         //dependecy injection service will define this property
         private AppDbContext context;
 
-        public List<StoryResponse> Stories { get { return context.Stories.Include(Stories=>Stories.Author).Include(Stories => Stories.Comments).ToList(); } }
+        //Use IQueryable isntead of List so users aren't given the entire DB of stories, rather the ability to search the DB
+        public IQueryable<StoryResponse> Stories {
+            get
+            {
+                //need to include the other DB tables so we can display data related to each story, ie their user and comments
+                return context.Stories.Include(Stories=>Stories.Author).Include(Stories => Stories.Comments);
+            }
+        }
 
         public StoryRepository(AppDbContext appContext)
         {

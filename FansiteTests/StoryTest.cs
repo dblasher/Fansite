@@ -2,6 +2,7 @@
 using FanSite.Repositories;
 using FanSite.Models;
 using Xunit;
+using System.Linq;
 
 namespace FansiteTests.Tests
 {
@@ -18,7 +19,7 @@ namespace FansiteTests.Tests
             //no actions needed, repo should have one story added by the class constructor
 
             //assert, first story title should be Ghandi "goes on hunger strike"
-            Assert.Equal("Ghandi goes on hunger strike", repo1.Stories[repo1.Stories.Count - 1].Title);
+            Assert.Equal("Ghandi goes on hunger strike", repo1.Stories.Last().Title);
         }
 
         [Fact]
@@ -41,10 +42,10 @@ namespace FansiteTests.Tests
             repo2.AddStory(story);
 
             //assert, could add a comparer to simply this assertion to one line
-            Assert.Equal("Test title", repo2.Stories[repo2.Stories.Count - 1].Title);
-            Assert.Equal("test date", repo2.Stories[repo2.Stories.Count - 1].Date);
-            Assert.Equal("test text", repo2.Stories[repo2.Stories.Count - 1].Text);
-            Assert.Equal("Mr. Test", repo2.Stories[repo2.Stories.Count - 1].Author.Username);
+            Assert.Equal("Test title", repo2.Stories.Last().Title);
+            Assert.Equal("test date", repo2.Stories.Last().Date);
+            Assert.Equal("test text", repo2.Stories.Last().Text);
+            Assert.Equal("Mr. Test", repo2.Stories.Last().Author.Username);
         }
 
         [Fact]
@@ -58,7 +59,7 @@ namespace FansiteTests.Tests
             controller.Stories("Ghandi meets with the Prime Minister", "Carl Sagan", "April 5th, 1968", "The meeting went very poorly.");
 
             //Assert
-            Assert.Equal("Ghandi meets with the Prime Minister", repo3.Stories[repo3.Stories.Count - 1].Title);
+            Assert.Equal("Ghandi meets with the Prime Minister", repo3.Stories.Last().Title);
         }
 
         [Fact]

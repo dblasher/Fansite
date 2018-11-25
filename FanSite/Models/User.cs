@@ -16,7 +16,7 @@ namespace FanSite.Models
         //[Required(ErrorMessage = "Please enter a username")]
         public string Username { get; set; }
 
-        public List<StoryResponse> Stories { get { return stories; } }
-        public List<Comment> Comments { get { return comments; } }
+        public ICollection<StoryResponse> Stories { get { return stories; } }
+        public ICollection<Comment> Comments { get { return comments; } }
     }
 }

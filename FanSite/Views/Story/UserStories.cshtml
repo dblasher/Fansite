@@ -35,7 +35,7 @@
     <h2> User Stories</h2>
     <h3>@ViewBag.newestCommenter</h3>
     <h3> Number of stories about Ghandi: @ViewData["storyCount"]</h3>
-    <h3> Newest Story: @ViewBag.newestStory</h3>
+    <h3> Newest Story:<em> @ViewBag.newestStory</em></h3>
     <h3 style="align-items:center"><a asp-action="Stories">Back to Story submission</a></h3>
     <div class="row">
         @foreach (StoryResponse story in Model)

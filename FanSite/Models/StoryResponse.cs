@@ -29,6 +29,6 @@ namespace FanSite.Models
         public int Rating { get; set; }
 
         public User Author { get; set; }
-        public List<Comment> Comments { get { return comments; } }
+        public ICollection<Comment> Comments { get { return comments; } }
     }
 }

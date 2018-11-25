@@ -33,19 +33,19 @@ namespace FanSite.Controllers
             story.Title = title;
             story.Date = date; //for now Date is a string
             story.Text = text;
-            //this is messy, the way I set up my form I had to use Authors as an input field
             story.Author = new User() { Username = author };
-
+            ViewBag.newestStory = title;
             repo.AddStory(story);
             return RedirectToAction("UserStories");
         }
         //user navigated to the UserStories page, send the view all the stories currently saved in the StoryRepository model
         public IActionResult UserStories()
         {
-            List<StoryResponse> stories = repo.Stories;
+            //have to convert stories to a List so we can manipulate it
+            List<StoryResponse> stories = repo.Stories.ToList();
             stories.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
             ViewData["storyCount"] = stories.Count;
-            //ViewBag.newestStory = stories[stories.Count - 1].Title.ToString();
+            ViewBag.newestStory = stories[stories.Count - 1].Title.ToString();
             return View(stories);
         }
 

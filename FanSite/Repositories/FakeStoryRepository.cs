@@ -14,7 +14,7 @@ namespace FanSite.Repositories
     {
         private List<StoryResponse> stories = new List<StoryResponse>();
 
-        public List<StoryResponse> Stories { get { return stories; } }
+        public IQueryable<StoryResponse> Stories { get { return stories.AsQueryable<StoryResponse>(); } }
 
         public FakeStoryRepository()
         {
