@@ -41,7 +41,7 @@ namespace FanSite
             services.AddTransient<IStoryRepository, StoryRepository>();
             //add service for DB connection string
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-                Configuration["Data:Fansite:ConnectionString"]));
+                Configuration.GetConnectionString("SqlServerConnection")));
 
             //services.AddTransient<>(AppDbContext);
         }
