@@ -56,7 +56,8 @@ namespace FansiteTests.Tests
             var controller = new StoryController(repo3);
 
             //act
-            controller.Stories("Ghandi meets with the Prime Minister", "Carl Sagan", "April 5th, 1968", "The meeting went very poorly.");
+            StoryResponse story = new StoryResponse() { Title = "Ghandi meets with the Prime Minister", Date = "April 5th, 1968", Text = "The meeting went very poorly." };
+            controller.Stories(story, "Carl Sagan");
 
             //Assert
             Assert.Equal("Ghandi meets with the Prime Minister", repo3.Stories.Last().Title);

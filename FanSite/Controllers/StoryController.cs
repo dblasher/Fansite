@@ -27,16 +27,18 @@ namespace FanSite.Controllers
 
         //user submitted the Story form, create a new story with that data and add it the the StoryRepostory static model
         [HttpPost]
-        public RedirectToActionResult Stories(string title, string author, string date, string text)
+        public RedirectToActionResult Stories(StoryResponse story, string author)
         {
             if (ModelState.IsValid)
             {
-                StoryResponse story = new StoryResponse();
+                /*StoryResponse story = new StoryResponse();
                 story.Title = title;
                 story.Date = date; //for now Date is a string
                 story.Text = text;
                 story.Author = new User() { Username = author };
                 ViewBag.newestStory = title;
+                repo.AddStory(story);*/
+                story.Author = new User() { Username = author };
                 repo.AddStory(story);
             }
             return RedirectToAction("UserStories");
@@ -55,12 +57,35 @@ namespace FanSite.Controllers
                 ViewBag.author = story[0].Author.Username;
                 ViewBag.queryTitle = story[0].Title;
                 ViewBag.date = story[0].Date;
-                ViewBag.result = "found";
+                ViewBag.titleResult = "found";
             }
             //if the view sees this empty property it should skip displaying the results
             else
             {
-                ViewBag.result = "null";
+                ViewBag.titleResult = null;
+            }
+            return View("Stories");
+        }
+
+        //user is looking for a story by author
+        [HttpPost]
+        public IActionResult FindAuthor(string author)
+        {
+            List<StoryResponse> story = (from s in repo.Stories
+                                         where s.Author.Username == author
+                                         select s).ToList();
+            //save the first result if found
+            if (story.Count >= 1)
+            {
+                ViewBag.queryAuthor = story[0].Author.Username;
+                ViewBag.foundTitle = story[0].Title;
+                ViewBag.date = story[0].Date;
+                ViewBag.AuthorResult = "found";
+            }
+            //if the view sees this empty property it should skip displaying the results
+            else
+            {
+                ViewBag.authorResult = null;
             }
             return View("Stories");
         }

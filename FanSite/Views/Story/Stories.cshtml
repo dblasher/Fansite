@@ -4,7 +4,13 @@
     Layout = "_submissionLayout";
 }
 @{ViewData["Title"] = "Stories";
-    string result = ViewBag.result;}
+    string titleResult = ViewBag.titleResult;
+    string authorResult = ViewBag.authorResult;}
+
+<!--Scripts for form validation-->
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="container">
     <h2>Stories</h2>
@@ -16,21 +22,25 @@
     </h3>
 
     <form class="p-a-1" asp-action="Stories" method="post" asp-antiforgery="true">
-        <div asp-validation-summary="All"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Title">Story Title:</label>
+            <div><span asp-validation-for="Title" class="text-danger"> </span></div>
             <input class="form-control" asp-for="Title" />
         </div>
         <div class="form-group">
-            <label asp-for="Author">Author:</label>
-            <input class="form-control" asp-for="Author" />
+            <label name="Author">Author:</label>
+            <div><span asp-validation-for="Author" class="text-danger"> </span></div>
+            <input class="form-control" name="Author" />
         </div>
         <div class="form-group">
             <label asp-for="Date">Date this happened:</label>
+            <div><span asp-validation-for="Date" class="text-danger"> </span></div>
             <input class="form-control" asp-for="Date" />
         </div>
         <div class="form-group">
             <label asp-for="Text">Tell your story:</label>
+            <div><span asp-validation-for="Text" class="text-danger"> </span></div>
             <textarea class="form-control" asp-for="Text" rows="3"></textarea>
         </div>
         <div class="text-center">
@@ -51,13 +61,35 @@
             </button>
         </div>
     </form>
-    @if (result == null)
+
+    @if (titleResult == null)
     {
-        <h3>Search result will go here if found</h3>
+        <h3>Title search result will go here if found</h3>
     }
-   else
+    else
     {
         <h3>@ViewBag.queryTitle was submitted by @ViewBag.author on @ViewBag.date</h3>
+    }
+    <br />
+    <form class="p-a-1" asp-action="FindAuthor" method="post">
+        <div class="form-group">
+            <label asp-for="Author">Find Story By Author:</label>
+            <input class="form-control" asp-for="Author" />
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">
+                Search
+            </button>
+        </div>
+    </form>
+    <br />
+    @if (authorResult == null)
+    {
+        <h3>Author search result will go here if found</h3>
+    }
+    else
+    {
+        <h3>@ViewBag.queryAuthor submitted the story <em>@ViewBag.foundTitle</em> on @ViewBag.date</h3>
     }
 
 

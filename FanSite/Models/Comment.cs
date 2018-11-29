@@ -10,7 +10,7 @@ namespace FanSite.Models
     {
         public int CommentID { get; set; }
 
-
+        [StringLength(80, MinimumLength = 1)]
         [Required(ErrorMessage = "Please enter a Comment")]
         public string CommentText { get; set; }
 

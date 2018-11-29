@@ -15,6 +15,7 @@ namespace FanSite.Models
         //private User author = new User();
         private List<Comment> comments = new List<Comment>();
 
+        [Range(0, 5, ErrorMessage = "Rating must be on a scale from 0 to 5")]
         public int rating = 0;
 
         [StringLength(100, MinimumLength = 2)]
@@ -31,7 +32,10 @@ namespace FanSite.Models
 
         public int Rating { get; set; }
 
+        [StringLength(20, MinimumLength = 6)]
+        //[Required(ErrorMessage = "Please enter an Author")]
         public User Author { get; set; }
+
         public ICollection<Comment> Comments { get { return comments; } }
     }
 }
