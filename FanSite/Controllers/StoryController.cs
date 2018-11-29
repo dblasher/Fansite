@@ -29,14 +29,40 @@ namespace FanSite.Controllers
         [HttpPost]
         public RedirectToActionResult Stories(string title, string author, string date, string text)
         {
-            StoryResponse story = new StoryResponse();
-            story.Title = title;
-            story.Date = date; //for now Date is a string
-            story.Text = text;
-            story.Author = new User() { Username = author };
-            ViewBag.newestStory = title;
-            repo.AddStory(story);
+            if (ModelState.IsValid)
+            {
+                StoryResponse story = new StoryResponse();
+                story.Title = title;
+                story.Date = date; //for now Date is a string
+                story.Text = text;
+                story.Author = new User() { Username = author };
+                ViewBag.newestStory = title;
+                repo.AddStory(story);
+            }
             return RedirectToAction("UserStories");
+        }
+
+        //user is looking for a story by title
+        [HttpPost]
+        public IActionResult FindStory(string title)
+        {
+            List<StoryResponse> story = (from s in repo.Stories
+                                   where s.Title == title
+                                   select s).ToList();
+            //save the first result if found
+            if(story.Count >= 1)
+            {
+                ViewBag.author = story[0].Author.Username;
+                ViewBag.queryTitle = story[0].Title;
+                ViewBag.date = story[0].Date;
+                ViewBag.result = "found";
+            }
+            //if the view sees this empty property it should skip displaying the results
+            else
+            {
+                ViewBag.result = "null";
+            }
+            return View("Stories");
         }
         //user navigated to the UserStories page, send the view all the stories currently saved in the StoryRepository model
         public IActionResult UserStories()
